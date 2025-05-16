@@ -1,38 +1,37 @@
 #include "entrypoint.h"
 #include "raylib.h"
 #include "assets.h"
-#include "Shape.h"
-#include "Rectangle.h"
-#include "Circle.h"
-#include "Triangle.h"
+#include "Space_ship.h"
+#include "GameObject.h"
+#include "asteroid.h"
+#include "laser.h"
+
 #include <vector>
 #define MAX_COL 14
 #define MAX_ROW 14
-#define WIN_W MAX_COL * RECT_SIZE
-
 //Creer votre class Engin ici et appeler une fonction start que vous définisser à la classe dans la fonction raylib_start plus bas.
 void raylib_start(void){
     InitWindow(720,480,"Asteroids");
-    Triangle* spaceShip; 
-    Circle* asteroid;
-    float* ship_dimensions[6];
+    SetTargetFPS(30);
     SetTargetFPS(30);
     float* ship_x, ship_y, ship_w, ship_h;
-    std::vector<Shape*> shapes;
-    Color rekt_col = RED;
-    Color circ_col = BLUE;
-    Color trig_col = MAGENTA;
-    shapes.push_back(new Rect(0,0,100,100,&rekt_col));
-    shapes.push_back(new Circle(200,200,50,&circ_col));
+    std::vector<GameObject*> game_objects;
+    Color ast_col = BLUE;
+    Color laser_col = MAGENTA;
     float points[] = {100,100,150,150,50,150};
-    shapes.push_back(new Triangle(points,&trig_col));
-
     while(!WindowShouldClose()){
+        float dt = GetFrameTime();
+        Space_ship* spaceShip = new Space_ship();
+        spaceShip->Update(dt);
+        Asteroid* asteroid = new Asteroid();
+        Laser* laser = new Laser();
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawTriangle(CLITERAL(Vector2){spaceShip->ship_points[0],spaceShip->ship_points[1]},CLITERAL(Vector2){spaceShip->ship_points[2],spaceShip->ship_points[3]},CLITERAL(Vector2){spaceShip->ship_points[4],spaceShip->ship_points[5]},*spaceShip->ship_color);
+        spaceShip->Draw();
+        DrawTriangle(CLITERAL(Vector2){spaceShip->ship_points[0],spaceShip->ship_points[1]},CLITERAL(Vector2){spaceShip->ship_points[2],spaceShip->ship_points[3]},CLITERAL(Vector2){spaceShip->ship_points[4],spaceShip->ship_points[5]},spaceShip->ship_col);
+        delete spaceShip;
+        delete asteroid;
+        delete laser;
         EndDrawing();
     }
-
-    CloseWindow();
 }
