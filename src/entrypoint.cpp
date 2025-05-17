@@ -21,17 +21,8 @@ void raylib_start(void){
     float points[] = {100,100,150,150,50,150};
     while(!WindowShouldClose()){
         float dt = GetFrameTime();
-        Space_ship* spaceShip = new Space_ship();
-        spaceShip->Update(dt);
-        Asteroid* asteroid = new Asteroid();
-        Laser* laser = new Laser();
         BeginDrawing();
         ClearBackground(BLACK);
-        spaceShip->Draw();
-        DrawTriangle(CLITERAL(Vector2){spaceShip->ship_points[0],spaceShip->ship_points[1]},CLITERAL(Vector2){spaceShip->ship_points[2],spaceShip->ship_points[3]},CLITERAL(Vector2){spaceShip->ship_points[4],spaceShip->ship_points[5]},spaceShip->ship_col);
-        delete spaceShip;
-        delete asteroid;
-        delete laser;
         EndDrawing();
     }
 }

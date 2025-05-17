@@ -5,7 +5,7 @@ GameObject::GameObject(){
     this->position = {100,100};
     this->direction = {0,0};
     this->angle = 0;
-     this->speed = 0;
+    this->speed = 0;
 }
 
 void GameObject::Draw(){
@@ -24,5 +24,5 @@ if(angle < 0 )
     angle = 360 - angle;
     
 if(angle > 360)
-    angle = angle -360;
+    angle = angle - 360;
 }
